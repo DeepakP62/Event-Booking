@@ -1,0 +1,38 @@
+<% layout("/layouts/boilerplate.ejs")%>
+    <% if (success_msg && success_msg.length) { %>
+        <div class="row mt-2">
+            <div class="alert alert-success alert-dismissible fade show col-6 offset-3" role="alert" style="padding: 0,auto;">
+                <%= success_msg %>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    </div>
+    <% } %>
+    <% if (error_msg && error_msg.length) { %>
+        <div class="row mt-2">
+            <div class="alert alert-danger alert-dismissible fade show col-6 offset-3" role="alert" style="padding: 0,auto;">
+                <%= error_msg %>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    <% } %>
+    <body>
+        <div class="row">
+            <div class="col-6 offset-2">
+                <h1>User Signup Form</h1>
+                <form method="POST" action="/signup" novalidate class="needs-validation">
+                    <div class="mb-3">
+                        <label for="username" class="form-label">Username:</label>
+                        <input type="text" name="username" placeholder="Enter Username" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email:</label>
+                        <input type="email" name="email" placeholder="Enter User-Email" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Password</label>
+                        <input type="password" name="password" placeholder="Enter User-Password" class="form-control" required>
+                    </div>
+                    <button class="btn btn-dark">SignUp</button>
+                </form>
+            </div>
+        </div>
+    </body>

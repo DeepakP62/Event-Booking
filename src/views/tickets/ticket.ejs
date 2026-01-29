@@ -1,0 +1,17 @@
+<% layout("/layouts/boilerplate.ejs")%>
+    </head>
+
+    <body>
+        <div class="row">
+            <div class="col-6 offset-2">
+                <h1>Book Your Ticket</h1>
+                <form method="post" action="/event/<%=event._id%>/booking" novalidate class="needs-validation">
+                    <div class="mb-3">
+                        <label for="user" class="form-label">User ID:</label>
+                        <input type="text" placeholder="Enter Your ID" name="user" class="form-control" required>
+                    </div>
+                    <button class="btn btn-dark">Book Ticket</button>
+                </form>
+            </div>
+        </div>
+    </body>
