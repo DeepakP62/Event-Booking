@@ -1,3 +1,7 @@
+const path = require("path");
+require("dotenv").config({
+  path: path.resolve(__dirname, "../.env")
+});
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
@@ -7,7 +11,6 @@ const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");
 const session = require("express-session");
 const flash = require("connect-flash");
-const path = require("path");
 const User = require("./models/User.js");
 const Event = require("./models/Event.js");
 app.engine('ejs', ejsMate);
@@ -17,12 +20,20 @@ app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 app.use(methodOverride("_method"));
+const cors = require("cors");
+
+// app.use(cors({
+//   origin: "http://localhost:5173", // React URL
+//   credentials: true,               // allow cookies
+// }));
+
 app.use(express.static(path.join(__dirname,"public")));
 const userRoutes = require("./routes/userRoutes.js");
 const eventRoutes = require("./routes/eventRoutes.js");
 
+const MONGO_URL = process.env.MONGO_URL;
 async function main(){
-    await mongoose.connect("mongodb://127.0.0.1:27017/event_booking");
+    await mongoose.connect(MONGO_URL);
 }
 main().then(()=>{
     console.log("connect to Database!");
@@ -63,6 +74,7 @@ app.use(async (req, res, next) => {
 // view all Event
 app.get("/", async(req,res)=>{
     const allEvent = await Event.find();
+    //res.json(allEvent);
     res.render("events/index.ejs",{allEvent});
 })
 
@@ -71,7 +83,7 @@ app.use("/event",eventRoutes);
 
 
 // connect to the server
-const port = 5000;
+const port = process.env.PORT || 3000;
 app.listen(port,()=>{
     console.log(`app is listing on port ${port}`);
 })
